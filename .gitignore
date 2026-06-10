@@ -1,0 +1,20 @@
+# --- Frontend (Node/React) ---
+node_modules/
+dist/
+dist-ssr/
+*.local
+.vscode/
+
+# --- Backend (Python) ---
+# Ignorar el entorno virtual que creamos (venv)
+venv/
+.venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# --- Base de Datos y Sistema ---
+.DS_Store
+Thumbs.db
+.env
