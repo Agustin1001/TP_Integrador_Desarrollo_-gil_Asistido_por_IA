@@ -359,7 +359,7 @@ async def diagnostico_ia():
     try:
         async with httpx.AsyncClient(timeout=30) as client:
             resp = await client.post(
-                "https://api.anthropic.com/v1/messages",
+                "https://api.groq.com/openai/v1/chat/completions",
                 headers={"Authorization": f"Bearer {GROQ_KEY}", "Content-Type": "application/json"},
                 json={"model": "llama3-70b-8192", "max_tokens": 50, "messages": [{"role": "user", "content": "Di solo: OK"}]},
             )
