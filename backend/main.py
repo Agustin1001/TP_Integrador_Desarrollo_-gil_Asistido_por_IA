@@ -28,7 +28,7 @@ app.add_middleware(
 
 SECRET_KEY  = os.getenv("SECRET_KEY", "mi_clave_secreta_super_segura_cambiar_en_prod")
 ALGORITHM   = "HS256"
-CLAUDE_KEY  = os.getenv("ANTHROPIC_API_KEY", "")   # Variable de entorno en Render
+GROQ_KEY    = os.getenv("GROQ_API_KEY", "")         # Variable de entorno en Render
 DB_PATH     = os.getenv("DB_PATH", "eventos_tech.db")
 
 
@@ -235,28 +235,27 @@ def eliminar_participante(id: int, td=Depends(verificar_token)):
 
 
 # ── IA con Claude (Anthropic) ──────────────────────────────────────────────────
-async def llamar_claude(prompt: str, max_tokens: int = 800) -> str:
-    """Llama a Claude claude-sonnet-4-20250514 y devuelve el texto generado."""
-    if not CLAUDE_KEY:
-        return "⚠️ API Key de Anthropic no configurada en el servidor."
+async def llamar_ia(prompt: str, max_tokens: int = 800) -> str:
+    """Llama a Groq (Llama3) y devuelve el texto generado. Tier gratuito."""
+    if not GROQ_KEY:
+        return "⚠️ GROQ_API_KEY no configurada en el servidor."
 
     async with httpx.AsyncClient(timeout=30) as client:
         resp = await client.post(
-            "https://api.anthropic.com/v1/messages",
+            "https://api.groq.com/openai/v1/chat/completions",
             headers={
-                "x-api-key":         CLAUDE_KEY,
-                "anthropic-version": "2023-06-01",
-                "content-type":      "application/json",
+                "Authorization": f"Bearer {GROQ_KEY}",
+                "Content-Type":  "application/json",
             },
             json={
-                "model":      "claude-haiku-4-5-20251001",
+                "model":      "llama3-70b-8192",
                 "max_tokens": max_tokens,
                 "messages":   [{"role": "user", "content": prompt}],
             },
         )
         resp.raise_for_status()
         data = resp.json()
-        return data["content"][0]["text"]
+        return data["choices"][0]["message"]["content"]
 
 
 @app.get("/ai/analisis")
@@ -306,7 +305,7 @@ Genera un informe con:
 Responde en español, de forma clara y profesional. Máximo 250 palabras."""
 
     try:
-        analisis = await llamar_claude(prompt)
+        analisis = await llamar_ia(prompt)
         return {"analisis": analisis, "datos_base": resumen}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error al consultar IA: {str(e)}")
@@ -335,7 +334,7 @@ Responde ÚNICAMENTE con un JSON válido con este formato exacto:
 No incluyas texto adicional fuera del JSON."""
 
     try:
-        respuesta = await llamar_claude(prompt, max_tokens=200)
+        respuesta = await llamar_ia(prompt, max_tokens=200)
         # Intentamos parsear el JSON de Claude
         import re
         json_match = re.search(r'\{.*\}', respuesta, re.DOTALL)
@@ -351,21 +350,21 @@ No incluyas texto adicional fuera del JSON."""
 @app.get("/ai/diagnostico")
 async def diagnostico_ia():
     """Endpoint público de diagnóstico — muestra el error real de Claude."""
-    key_presente = bool(CLAUDE_KEY)
-    key_preview  = f"{CLAUDE_KEY[:12]}..." if len(CLAUDE_KEY) > 12 else "(vacía)"
+    key_presente = bool(GROQ_KEY)
+    key_preview  = f"{GROQ_KEY[:12]}..." if len(GROQ_KEY) > 12 else "(vacía)"
 
     if not key_presente:
-        return {"estado": "ERROR", "problema": "ANTHROPIC_API_KEY no configurada", "key_preview": key_preview}
+        return {"estado": "ERROR", "problema": "GROQ_API_KEY no configurada", "key_preview": key_preview}
 
     try:
         async with httpx.AsyncClient(timeout=30) as client:
             resp = await client.post(
                 "https://api.anthropic.com/v1/messages",
-                headers={"x-api-key": CLAUDE_KEY, "anthropic-version": "2023-06-01", "content-type": "application/json"},
-                json={"model": "claude-haiku-4-5-20251001", "max_tokens": 50, "messages": [{"role": "user", "content": "Di solo: OK"}]},
+                headers={"Authorization": f"Bearer {GROQ_KEY}", "Content-Type": "application/json"},
+                json={"model": "llama3-70b-8192", "max_tokens": 50, "messages": [{"role": "user", "content": "Di solo: OK"}]},
             )
             if resp.status_code == 200:
-                return {"estado": "OK", "respuesta": resp.json()["content"][0]["text"], "key_preview": key_preview}
+                return {"estado": "OK", "respuesta": resp.json()["choices"][0]["message"]["content"], "key_preview": key_preview}
             else:
                 return {"estado": "ERROR_API", "http_status": resp.status_code, "detalle": resp.text, "key_preview": key_preview}
     except Exception as e:
