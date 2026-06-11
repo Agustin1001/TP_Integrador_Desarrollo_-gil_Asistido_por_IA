@@ -249,7 +249,7 @@ async def llamar_claude(prompt: str, max_tokens: int = 800) -> str:
                 "content-type":      "application/json",
             },
             json={
-                "model":      "claude-sonnet-4-20250514",
+                "model":      "claude-haiku-4-5-20251001",
                 "max_tokens": max_tokens,
                 "messages":   [{"role": "user", "content": prompt}],
             },
