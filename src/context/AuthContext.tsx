@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 //Manejará el estado de la sesión y el token
 //Este archivo crea el contexto global para saber si hay alguien logueado en cualquier parte de la app.
 import { createContext, useContext, useState, type ReactNode } from 'react';

@@ -1,28 +1,24 @@
-/**
- * ListaPage.tsx — Lista de participantes con Panel IA integrado
- * Modificado para el TP Integrador: agrega PanelIA para administradores
- */
-
 import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { ParticipantesContext } from '../context/ParticipantesContext';
 import { useAuth } from '../context/AuthContext';
 import Filtros from '../components/Filtros';
 import ParticipanteCard from '../components/ParticipanteCard';
-import PanelIA from '../components/PanelIA';      // 🆕 Panel IA con Claude
+import PanelIA from '../components/PanelIA';
 
 export default function ListaPage() {
-  const context = useContext(ParticipantesContext);
-  const { user } = useAuth();
-
-  if (!context) return null;
-  const { participantes, resetear } = context;
-
+  // ✅ CORRECCIÓN: useState declarado ANTES del return condicional
   const [filtros, setFiltros] = useState({
     nombre:    '',
     modalidad: 'Todas',
     nivel:     'Todos',
   });
+
+  const context = useContext(ParticipantesContext);
+  const { user } = useAuth();
+
+  if (!context) return null;
+  const { participantes, resetear } = context;
 
   const resetearDatos = () => {
     if (window.confirm('¿Estás seguro de eliminar todos los registros?')) {
@@ -56,7 +52,6 @@ export default function ListaPage() {
         )}
       </div>
 
-      {/* 🆕 Panel de Análisis IA — visible para todos los usuarios logueados */}
       <PanelIA />
 
       <Filtros filtros={filtros} setFiltros={setFiltros} onLimpiar={limpiarFiltros} />

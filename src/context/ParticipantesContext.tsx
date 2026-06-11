@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { createContext, useReducer, useEffect, type ReactNode } from 'react';
 import { Participante } from '../models/Participante';
 import { participantesReducer } from '../reducers/participantesReducer';
