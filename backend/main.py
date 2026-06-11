@@ -347,6 +347,31 @@ No incluyas texto adicional fuera del JSON."""
         raise HTTPException(status_code=500, detail=f"Error al consultar IA: {str(e)}")
 
 
+
+@app.get("/ai/diagnostico")
+async def diagnostico_ia():
+    """Endpoint público de diagnóstico — muestra el error real de Claude."""
+    key_presente = bool(CLAUDE_KEY)
+    key_preview  = f"{CLAUDE_KEY[:12]}..." if len(CLAUDE_KEY) > 12 else "(vacía)"
+
+    if not key_presente:
+        return {"estado": "ERROR", "problema": "ANTHROPIC_API_KEY no configurada", "key_preview": key_preview}
+
+    try:
+        async with httpx.AsyncClient(timeout=30) as client:
+            resp = await client.post(
+                "https://api.anthropic.com/v1/messages",
+                headers={"x-api-key": CLAUDE_KEY, "anthropic-version": "2023-06-01", "content-type": "application/json"},
+                json={"model": "claude-haiku-4-5-20251001", "max_tokens": 50, "messages": [{"role": "user", "content": "Di solo: OK"}]},
+            )
+            if resp.status_code == 200:
+                return {"estado": "OK", "respuesta": resp.json()["content"][0]["text"], "key_preview": key_preview}
+            else:
+                return {"estado": "ERROR_API", "http_status": resp.status_code, "detalle": resp.text, "key_preview": key_preview}
+    except Exception as e:
+        return {"estado": "EXCEPCION", "error": str(e), "tipo": type(e).__name__, "key_preview": key_preview}
+
+
 @app.get("/")
 def root():
     return {
