@@ -21,7 +21,7 @@ const ParticipanteCard = ({ participante }: ParticipanteCardProps) => {
       case 'Principiante': return 'bg-green-200 border-green-600';
       case 'Intermedio': return 'bg-yellow-200 border-yellow-600';
       case 'Avanzado': return 'bg-red-200 border-red-600';
-      default: return 'bg-white border-fuchsia-500'; 
+      default: return 'bg-white border-teal-500'; 
     }
   };
 

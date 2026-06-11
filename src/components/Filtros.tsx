@@ -33,7 +33,7 @@ const Filtros = ({ filtros, setFiltros, onLimpiar }: FiltrosProps) => {
   };
 
   return (
-    <div className="bg-white p-6 shadow-md rounded-lg mb-8 flex flex-wrap gap-4 items-end border-2 border-fuchsia-500">
+    <div className="bg-white p-6 shadow-md rounded-lg mb-8 flex flex-wrap gap-4 items-end border-2 border-teal-500">
       
       <div className="flex flex-col">
         <label className="text-sm font-bold text-black mb-1">Buscar por nombre</label>
@@ -44,7 +44,7 @@ const Filtros = ({ filtros, setFiltros, onLimpiar }: FiltrosProps) => {
           placeholder="Buscar con Ctrl + B..." 
           value={filtros.nombre} 
           onChange={handleChange} 
-          className="border-2 border-fuchsia-400 p-2 rounded focus:outline-none focus:border-fuchsia-600" 
+          className="border-2 border-teal-400 p-2 rounded focus:outline-none focus:border-teal-600" 
         />
       </div>
       
@@ -54,7 +54,7 @@ const Filtros = ({ filtros, setFiltros, onLimpiar }: FiltrosProps) => {
           name="modalidad"
           value={filtros.modalidad} 
           onChange={handleChange} 
-          className="border-2 border-fuchsia-400 p-2 rounded focus:outline-none focus:border-fuchsia-600 bg-white"
+          className="border-2 border-teal-400 p-2 rounded focus:outline-none focus:border-teal-600 bg-white"
         >
           <option value="Todas">Todas</option>
           <option value="Presencial">Presencial</option>
@@ -69,7 +69,7 @@ const Filtros = ({ filtros, setFiltros, onLimpiar }: FiltrosProps) => {
           name="nivel"
           value={filtros.nivel} 
           onChange={handleChange} 
-          className="border-2 border-fuchsia-400 p-2 rounded focus:outline-none focus:border-fuchsia-600 bg-white"
+          className="border-2 border-teal-400 p-2 rounded focus:outline-none focus:border-teal-600 bg-white"
         >
           <option value="Todos">Todos</option>
           <option value="Principiante">Principiante</option>

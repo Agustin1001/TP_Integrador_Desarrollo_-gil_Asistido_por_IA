@@ -2,7 +2,7 @@
  * useSugerirNivel.ts — Custom Hook para sugerencia de nivel con IA
  *
  * Llama al endpoint /ai/sugerir-nivel y devuelve el nivel sugerido
- * por Claude según las tecnologías seleccionadas en el formulario.
+ * por la IA según las tecnologías seleccionadas en el formulario.
  */
 
 import { useState } from 'react';

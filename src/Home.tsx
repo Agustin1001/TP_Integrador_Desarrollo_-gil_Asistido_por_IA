@@ -19,11 +19,11 @@ function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-fuchsia-50 font-sans">
+    <div className="min-h-screen bg-teal-50 font-sans">
       
       {/* El NavBar solo se muestra si el usuario está logueado */}
       {user && (
-        <nav className="bg-fuchsia-700 text-white shadow-md">
+        <nav className="bg-teal-700 text-white shadow-md">
           <div className="max-w-6xl mx-auto px-4">
             <div className="flex justify-between items-center py-4">
               <Link to="/lista" className="text-2xl font-extrabold tracking-tight">
@@ -43,12 +43,12 @@ function Home() {
               </div>
 
               <div className="hidden md:flex space-x-4 font-bold items-center">
-                <Link to="/lista" className="hover:text-fuchsia-200 transition">Listado</Link>
+                <Link to="/lista" className="hover:text-teal-200 transition">Listado</Link>
                 {/* Ocultamos Nuevo Registro si no es ADMIN */}
                 {user.rol === "ADMIN" && (
-                  <Link to="/nuevo" className="hover:text-fuchsia-200 transition">Nuevo Registro</Link>
+                  <Link to="/nuevo" className="hover:text-teal-200 transition">Nuevo Registro</Link>
                 )}
-                <button onClick={handleLogout} className="bg-fuchsia-800 px-3 py-1 rounded hover:bg-fuchsia-900 transition">
+                <button onClick={handleLogout} className="bg-teal-800 px-3 py-1 rounded hover:bg-teal-900 transition">
                   Cerrar Sesión
                 </button>
               </div>
@@ -56,11 +56,11 @@ function Home() {
             
             {menuAbierto && (
               <div className="md:hidden pb-4 flex flex-col space-y-2 font-bold">
-                <Link to="/lista" onClick={() => setMenuAbierto(false)} className="block hover:bg-fuchsia-600 px-2 py-1 rounded">Listado</Link>
+                <Link to="/lista" onClick={() => setMenuAbierto(false)} className="block hover:bg-teal-600 px-2 py-1 rounded">Listado</Link>
                 {user.rol === "ADMIN" && (
-                  <Link to="/nuevo" onClick={() => setMenuAbierto(false)} className="block hover:bg-fuchsia-600 px-2 py-1 rounded">Nuevo Registro</Link>
+                  <Link to="/nuevo" onClick={() => setMenuAbierto(false)} className="block hover:bg-teal-600 px-2 py-1 rounded">Nuevo Registro</Link>
                 )}
-                <button onClick={() => { handleLogout(); setMenuAbierto(false); }} className="text-left block hover:bg-fuchsia-600 px-2 py-1 rounded w-full">
+                <button onClick={() => { handleLogout(); setMenuAbierto(false); }} className="text-left block hover:bg-teal-600 px-2 py-1 rounded w-full">
                   Cerrar Sesión
                 </button>
               </div>

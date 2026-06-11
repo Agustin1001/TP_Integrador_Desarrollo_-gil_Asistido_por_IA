@@ -1,7 +1,7 @@
 """
 Sistema de Registro de Eventos Tecnológicos — Backend
-FastAPI + SQLite + Claude AI (Anthropic)
-Autor: Sofia Raia | TP Integrador - Desarrollo Ágil Asistido por IA
+FastAPI + SQLite + IA (Groq / Llama 3.3)
+Autor: Grupo Bits&Bytes | TP Integrador - Desarrollo Ágil Asistido por IA
 """
 
 from fastapi import FastAPI, HTTPException, Depends
@@ -234,7 +234,7 @@ def eliminar_participante(id: int, td=Depends(verificar_token)):
         conn.close()
 
 
-# ── IA con Claude (Anthropic) ──────────────────────────────────────────────────
+# ── IA con Groq (Llama 3.3) ────────────────────────────────────────────────────
 async def llamar_ia(prompt: str, max_tokens: int = 800) -> str:
     """Llama a Groq (Llama3) y devuelve el texto generado. Tier gratuito."""
     if not GROQ_KEY:
@@ -261,7 +261,7 @@ async def llamar_ia(prompt: str, max_tokens: int = 800) -> str:
 @app.get("/ai/analisis")
 async def analizar_participantes(td=Depends(verificar_token)):
     """
-    Claude analiza los participantes registrados y genera un informe inteligente
+    La IA analiza los participantes registrados y genera un informe inteligente
     con estadísticas, insights y recomendaciones para el organizador del evento.
     """
     conn = get_db()
@@ -314,7 +314,7 @@ Responde en español, de forma clara y profesional. Máximo 250 palabras."""
 @app.post("/ai/sugerir-nivel")
 async def sugerir_nivel(req: SugerirNivelRequest, td=Depends(verificar_token)):
     """
-    Claude sugiere el nivel de experiencia apropiado basándose en las
+    La IA sugiere el nivel de experiencia apropiado basándose en las
     tecnologías seleccionadas y descripción opcional del participante.
     """
     if not req.tecnologias:
@@ -335,7 +335,7 @@ No incluyas texto adicional fuera del JSON."""
 
     try:
         respuesta = await llamar_ia(prompt, max_tokens=200)
-        # Intentamos parsear el JSON de Claude
+        # Intentamos parsear el JSON de la IA
         import re
         json_match = re.search(r'\{.*\}', respuesta, re.DOTALL)
         if json_match:
@@ -349,7 +349,7 @@ No incluyas texto adicional fuera del JSON."""
 
 @app.get("/ai/diagnostico")
 async def diagnostico_ia():
-    """Endpoint público de diagnóstico — muestra el error real de Claude."""
+    """Endpoint público de diagnóstico — muestra el error real de la IA."""
     key_presente = bool(GROQ_KEY)
     key_preview  = f"{GROQ_KEY[:12]}..." if len(GROQ_KEY) > 12 else "(vacía)"
 
@@ -377,5 +377,5 @@ def root():
         "app":     "Eventos Tech API",
         "version": "2.0.0",
         "docs":    "/docs",
-        "ai":      "Powered by Claude (Anthropic)",
+        "ai":      "Powered by Groq (Llama 3.3)",
     }

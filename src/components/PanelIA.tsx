@@ -1,8 +1,8 @@
 /**
- * PanelIA.tsx — Panel de Análisis Inteligente con Claude
+ * PanelIA.tsx — Panel de Análisis Inteligente con IA
  * 
  * Componente que consume el endpoint /ai/analisis del backend
- * y muestra el informe generado por Claude sobre los participantes.
+ * y muestra el informe generado por IA sobre los participantes.
  */
 
 import { useState } from 'react';
@@ -50,23 +50,23 @@ export default function PanelIA() {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-md border-2 border-purple-400 overflow-hidden mb-8">
+    <div className="bg-white rounded-xl shadow-md border-2 border-indigo-400 overflow-hidden mb-8">
       {/* Header */}
-      <div className="bg-gradient-to-r from-purple-600 to-fuchsia-600 px-6 py-4 flex items-center justify-between">
+      <div className="bg-gradient-to-r from-indigo-600 to-teal-600 px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <span className="text-2xl">🤖</span>
           <div>
             <h2 className="text-white font-extrabold text-lg leading-tight">
               Análisis Inteligente
             </h2>
-            <p className="text-purple-200 text-xs">Powered by Claude · Anthropic</p>
+            <p className="text-indigo-200 text-xs">Powered by Groq · Llama 3.3</p>
           </div>
         </div>
         <button
           onClick={obtenerAnalisis}
           disabled={cargando}
-          className="bg-white text-purple-700 font-bold px-4 py-2 rounded-lg text-sm
-                     hover:bg-purple-50 transition shadow-sm disabled:opacity-60
+          className="bg-white text-indigo-700 font-bold px-4 py-2 rounded-lg text-sm
+                     hover:bg-indigo-50 transition shadow-sm disabled:opacity-60
                      disabled:cursor-not-allowed flex items-center gap-2"
         >
           {cargando ? (
@@ -90,7 +90,7 @@ export default function PanelIA() {
         {/* Estado inicial */}
         {!analisis && !cargando && !error && (
           <p className="text-gray-500 text-center py-6 text-sm">
-            Hacé clic en <strong>"Generar análisis"</strong> para que Claude analice los datos
+            Hacé clic en <strong>"Generar análisis"</strong> para que la IA analice los datos
             de los participantes y te brinde insights y recomendaciones.
           </p>
         )}
@@ -124,24 +124,24 @@ export default function PanelIA() {
                   label="Tecnologías"
                   value={analisis.datos_base.tecnologias_populares.length}
                   icon="💻"
-                  color="bg-purple-50 border-purple-200 text-purple-800"
+                  color="bg-indigo-50 border-indigo-200 text-indigo-800"
                 />
                 <StatCard
                   label="Avanzados"
                   value={analisis.datos_base.niveles['Avanzado'] ?? 0}
                   icon="🚀"
-                  color="bg-fuchsia-50 border-fuchsia-200 text-fuchsia-800"
+                  color="bg-teal-50 border-teal-200 text-teal-800"
                 />
               </div>
             )}
 
-            {/* Análisis de Claude */}
-            <div className="bg-gradient-to-br from-purple-50 to-fuchsia-50
-                            border border-purple-200 rounded-lg p-5">
+            {/* Análisis de IA */}
+            <div className="bg-gradient-to-br from-indigo-50 to-teal-50
+                            border border-indigo-200 rounded-lg p-5">
               <div className="flex items-center gap-2 mb-3">
                 <span className="text-lg">🧠</span>
-                <span className="font-bold text-purple-800 text-sm uppercase tracking-wide">
-                  Análisis de Claude
+                <span className="font-bold text-indigo-800 text-sm uppercase tracking-wide">
+                  Análisis de IA
                 </span>
               </div>
               <div className="text-gray-700 text-sm leading-relaxed whitespace-pre-line">

@@ -1,76 +1,230 @@
-# Sistema de Registro de Eventos Tecnológicos con Seguridad JWT y Hooks Avanzados 🔒🚀
+# 🎪 Eventos Tech — Sistema de Registro Inteligente
 
-Una aplicación Full-Stack profesional para la gestión y registro de participantes. Esta versión evoluciona el proyecto integrando **seguridad robusta**, autenticación basada en **JSON Web Tokens (JWT)**, control de acceso por **roles de usuario** y una arquitectura optimizada mediante el uso de **hooks avanzados de React** para mejorar la accesibilidad, experiencia de usuario y reutilización de lógica.
+> **Gestión de participantes potenciada por Inteligencia Artificial**
+> TP Integrador · Desarrollo Ágil Asistido por IA
 
-## 📌 Características Principales
+[![CI/CD](https://github.com/TU_USUARIO/eventos-tech/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/TU_USUARIO/eventos-tech/actions)
+[![Deploy Frontend](https://img.shields.io/badge/Frontend-Vercel-black?logo=vercel)](https://eventos-tech.vercel.app)
+[![Deploy Backend](https://img.shields.io/badge/Backend-Render-46E3B7?logo=render)](https://eventos-tech-api.onrender.com)
+[![Powered by Groq](https://img.shields.io/badge/AI-Groq%20Llama%203.3-F55036)](https://groq.com)
 
-*   **Autenticación JWT:** Sistema de Login seguro con persistencia de sesión mediante tokens almacenados en `localStorage`.
-*   **Control de Acceso por Roles (RBAC):**
-    *   **ADMIN:** Acceso total al CRUD (Crear, Editar, Eliminar y Ver).
-    *   **CONSULTA (Invitado):** Acceso restringido de solo lectura al listado y filtros.
-*   **Rutas Protegidas:** Implementación de un componente `PrivateRoute` que bloquea accesos no autorizados a nivel de enrutamiento.
-*   **Persistencia en MySQL:** Gestión de datos relacionales utilizando **MySQL** vía XAMPP.
-*   **Frontend Seguro:** Inyección dinámica de headers `Authorization: Bearer <token>` en todas las peticiones a la API.
-* **Optimización de Experiencia de Usuario (UX) & Accesibilidad (A11y):**
-    * **Foco Automático:** El formulario activa inteligentemente el cursor en el input principal al montarse la pantalla mediante `useRef`.
-    * **Atajos de Teclado:** Traslado rápido de foco a la barra de búsqueda de filtros usando la combinación `Ctrl + B`.
-    * **IDs Accesibles:** Vinculación semántica perfecta entre componentes de formulario (`labels`, `inputs`, `checkboxes` y `radio buttons`) implementando `useId` de forma dinámica.
-    * **Custom Hooks:** Desacoplamiento total de la lógica de negocio del renderizado visual para un código más limpio y escalable.
+---
 
-## 🛠️ Tecnologías Utilizadas
+## 🚀 ¿Qué es Eventos Tech?
 
-**Frontend:**
-*   **React 18** + **TypeScript**.
-* **React Hooks Avanzados:** `useRef`, `useId`, `useContext` y creación de **Custom Hooks** propios.
-*   **React Context API:** Doble contexto para gestión de `AuthContext` (Seguridad) y `ParticipantesContext` (Datos).
-*   **Tailwind CSS:** Diseño UI/UX moderno, responsive y estilizado.
+**Eventos Tech** es una aplicación web Full-Stack para la gestión de participantes en eventos tecnológicos. No es un CRUD genérico: incorpora **inteligencia artificial real** para analizar datos y asistir al organizador en la toma de decisiones.
 
-**Backend:**
-*   **FastAPI** (Python Framework).
-*   **PyJWT:** Generación y validación de tokens de seguridad.
-*   **SQLModel / PyMySQL:** Integración con MySQL.
+### ¿Qué hace diferente a esta app?
+
+- 🤖 **Análisis IA en tiempo real** — Un modelo de lenguaje (Llama 3.3 vía Groq) examina todos los participantes y genera un informe ejecutivo con hallazgos, tendencias y recomendaciones accionables con un solo clic.
+- 💡 **Sugerencia de nivel inteligente** — Al completar el formulario de registro, el sistema puede sugerir automáticamente el nivel de experiencia del participante basándose en las tecnologías que domina.
+- 🔒 **Autenticación JWT + RBAC** — Dos roles diferenciados: `ADMIN` (CRUD completo) y `CONSULTA` (solo lectura).
+- ⚡ **Despliegue continuo** — Cada push a `main` ejecuta el pipeline de CI/CD automáticamente.
+
+---
+
+## 🛠️ Stack Tecnológico
+
+### Frontend
+| Tecnología | Versión | Uso |
+|---|---|---|
+| React | 19 | UI reactiva con hooks |
+| TypeScript | 5.9 | Tipado estático |
+| Vite | 8 | Bundler y dev server |
+| TailwindCSS | 4 | Estilos utilitarios (paleta teal/indigo) |
+| React Router | 7 | Navegación SPA |
+| Context API + useReducer | — | Estado global |
+
+### Backend
+| Tecnología | Versión | Uso |
+|---|---|---|
+| FastAPI | 0.111+ | Framework API REST |
+| Python | 3.11 | Lenguaje principal |
+| SQLite | built-in | Persistencia de datos |
+| PyJWT | 2.8+ | Tokens de autenticación |
+| httpx | 0.27+ | Llamadas HTTP async al servicio de IA |
+
+### IA & DevOps
+| Herramienta | Uso |
+|---|---|
+| **Groq (Llama 3.3 70B)** | Análisis de participantes + sugerencia de nivel |
+| **GitHub Actions** | Pipeline CI/CD automatizado |
+| **Vercel** | Deploy del frontend (React) |
+| **Render** | Deploy del backend (FastAPI) |
+
+---
+
+## 🧠 Integración de IA — Cómo funciona
+
+### 1. Panel de Análisis Inteligente (`GET /ai/analisis`)
+El backend recopila estadísticas de todos los participantes, construye un prompt contextualizado y llama al modelo de IA. La respuesta incluye:
+- Resumen ejecutivo del evento
+- Hallazgos clave sobre el perfil de participantes
+- Recomendaciones concretas para el organizador
+
+### 2. Sugerencia de Nivel (`POST /ai/sugerir-nivel`)
+Desde el formulario de registro, el organizador puede pedir a la IA que sugiera el nivel de experiencia apropiado según las tecnologías seleccionadas. La IA devuelve el nivel recomendado y una justificación breve en formato JSON.
+
+```
+Tecnologías: React, Node, Python
+IA → { nivel: "Intermedio", justificacion: "Domina el stack web completo..." }
+```
 
 ---
 
 ## 📁 Estructura del Proyecto
 
-```plaintext
-src/
-├── components/         # Filtros, ParticipanteCard, Formulario, NavBar
-├── context/            # AuthContext (Seguridad) y ParticipantesContext (Datos)
-├── hooks/              # Custom Hooks reutilizables (useForm, useShortcut)
-├── models/             # Interfaces de TypeScript (Participante, User)
-├── pages/              # LoginPage, ListaPage, FormularioPage, EditarPage
-├── reducers/           # Gestión de estado complejo con useReducer
-├── routes/             # Lógica de seguridad: PrivateRoute.tsx
-└── App.tsx / Home.tsx  # Enrutador con validación de roles y estructura base
+```
+eventos-tech/
+├── .github/
+│   └── workflows/
+│       └── ci-cd.yml          # Pipeline CI/CD automatizado
+├── backend/
+│   ├── main.py                # API FastAPI + SQLite + endpoints IA
+│   └── requirements.txt       # Dependencias Python
+├── src/
+│   ├── components/
+│   │   ├── Filtros.tsx         # Filtros con atajo de teclado Ctrl+B
+│   │   ├── Formulario.tsx      # Formulario de registro
+│   │   ├── ParticipanteCard.tsx# Tarjeta de participante
+│   │   └── PanelIA.tsx         # Panel de análisis con IA
+│   ├── context/
+│   │   ├── AuthContext.tsx     # Contexto de autenticación JWT
+│   │   └── ParticipantesContext.tsx
+│   ├── hooks/
+│   │   ├── useForm.ts          # Custom hook para formularios
+│   │   ├── useShortcut.ts      # Custom hook para atajos de teclado
+│   │   └── useSugerirNivel.ts  # Hook para sugerencia IA de nivel
+│   ├── models/
+│   │   └── Participante.ts     # Modelo de datos
+│   ├── pages/
+│   │   ├── LoginPage.tsx
+│   │   ├── ListaPage.tsx       # Incluye PanelIA
+│   │   ├── FormularioPage.tsx
+│   │   └── EditarPage.tsx
+│   ├── reducers/
+│   │   └── participantesReducer.ts
+│   └── routes/
+│       └── PrivateRoute.tsx
+└── README.md
+```
 
-⚙️ Instalación y Ejecución Local1. Configuración de la Base de DatosInicia Apache y MySQL desde el Panel de Control de XAMPP.Crea una base de datos llamada eventos_tech.Verifica la cadena de conexión en el backend: mysql+pymysql://root@localhost/eventos_tech.2. Levantar el Backend (API)Bashcd backend
+---
 
-# Crear y activar entorno virtual
+## ⚙️ Guía de Instalación y Ejecución Local
+
+### Prerrequisitos
+- Node.js 20+ (o npm)
+- Python 3.11+
+
+### 1. Clonar el repositorio
+
+```bash
+git clone https://github.com/TU_USUARIO/eventos-tech.git
+cd eventos-tech
+```
+
+### 2. Backend
+
+```bash
+cd backend
+
+# (Opcional) Crear entorno virtual
 python -m venv venv
-# En Windows:
-venv\Scripts\activate
+venv\Scripts\activate        # Windows
+# source venv/bin/activate   # Linux/Mac
 
 # Instalar dependencias
 pip install -r requirements.txt
 
-# Ejecutar servidor
-uvicorn main:app --reload
+# Configurar variables de entorno
+set GROQ_API_KEY=tu_api_key_aqui     # Windows  (obtener en console.groq.com)
+set SECRET_KEY=una_clave_secreta_segura
 
-3. Levantar el Frontend (React)
-Bashcd frontend
+# Iniciar servidor (el DB SQLite se crea automáticamente)
+uvicorn main:app --reload --port 8000
+```
 
-# Instalar dependencias
-pnpm install
+La API estará disponible en `http://localhost:8000`
+Documentación interactiva: `http://localhost:8000/docs`
+
+### 3. Frontend
+
+```bash
+# En la raíz del proyecto
+npm install
+
+# Crear archivo .env.local
+echo VITE_API_URL=http://localhost:8000 > .env.local
 
 # Iniciar servidor de desarrollo
-pnpm dev
+npm run dev
+```
 
-👥 Usuarios de Prueba
-Usuario | Contraseña | Rol      | Permisos
-admin   |  1234      | ADMIN    | CRUD Completo 
-invitado|  1234      | CONSULTA | Solo lectura / Filtros
+La app estará en `http://localhost:5173`
 
-Desarrollado por Sofia Raia 👩‍💻 
-Estudiante de Programación - Último Semestre.
+---
+
+## 👥 Usuarios de Prueba
+
+| Usuario   | Contraseña | Rol      | Permisos              |
+|-----------|------------|----------|-----------------------|
+| `admin`   | `1234`     | ADMIN    | CRUD completo + IA    |
+| `invitado`| `1234`     | CONSULTA | Solo lectura + IA     |
+
+---
+
+## 🌐 Despliegue en la Nube
+
+### Frontend → Vercel
+1. Importar el repositorio en [vercel.com](https://vercel.com)
+2. Framework: **Vite**
+3. Variable de entorno: `VITE_API_URL=https://tu-api.onrender.com`
+4. Deploy automático en cada push a `main`
+
+### Backend → Render
+1. Crear un **Web Service** en [render.com](https://render.com)
+2. Root Directory: `backend`
+3. Build Command: `pip install -r requirements.txt`
+4. Start Command: `uvicorn main:app --host 0.0.0.0 --port $PORT`
+5. Variables de entorno:
+   - `GROQ_API_KEY` → tu API key de Groq
+   - `SECRET_KEY` → clave secreta para JWT
+
+### CI/CD con GitHub Actions
+Configurar los siguientes Secrets en el repositorio:
+
+| Secret | Descripción |
+|---|---|
+| `VERCEL_TOKEN` | Token de Vercel |
+| `VERCEL_ORG_ID` | ID de organización Vercel |
+| `VERCEL_PROJECT_ID` | ID del proyecto Vercel |
+| `RENDER_DEPLOY_HOOK_URL` | Deploy hook de Render |
+| `VITE_API_URL` | URL del backend en producción |
+
+---
+
+## 🔗 Links
+
+- 🌐 **Demo en vivo**: [eventos-tech.vercel.app](https://eventos-tech.vercel.app)
+- 📡 **API**: [eventos-tech-api.onrender.com](https://eventos-tech-api.onrender.com/docs)
+- 📂 **Repositorio**: [github.com/TU_USUARIO/eventos-tech](https://github.com/TU_USUARIO/eventos-tech)
+
+---
+
+## 🤝 IA utilizada en el desarrollo
+
+Este proyecto fue desarrollado con asistencia de **IA conversacional** para:
+- Arquitectura del sistema de autenticación JWT
+- Diseño de los endpoints de IA (`/ai/analisis`, `/ai/sugerir-nivel`)
+- Generación del pipeline de GitHub Actions
+- Refactorización de componentes React
+- Depuración de errores de despliegue
+- Redacción de documentación técnica
+
+El servicio de IA en producción usa **Groq con el modelo Llama 3.3 70B**, elegido por su tier gratuito y su altísima velocidad de inferencia.
+
+---
+
+Desarrollado por **Grupo Bits&Bytes** 👨‍💻👩‍💻
+TP Integrador 2026

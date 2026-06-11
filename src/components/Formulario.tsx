@@ -81,8 +81,8 @@ const Formulario = ({ onSuccess }: FormularioProps) => {
   };
 
   return (
-    <div className="bg-white p-4 sm:p-6 shadow-md rounded-lg mb-8 border-2 border-fuchsia-500 overflow-hidden">
-      <div className="bg-green-600 -m-4 sm:-m-6 mb-4 p-3 sm:mb-6">
+    <div className="bg-white p-4 sm:p-6 shadow-md rounded-lg mb-8 border-2 border-teal-500 overflow-hidden">
+      <div className="bg-slate-700 -m-4 sm:-m-6 mb-4 p-3 sm:mb-6">
         <h2 className="text-lg sm:text-xl font-bold text-white">
           {participanteActivo ? 'Editar Participante' : 'Registro de Participantes'}
         </h2>
@@ -100,7 +100,7 @@ const Formulario = ({ onSuccess }: FormularioProps) => {
             name="nombre"
             value={formData.nombre}
             onChange={handleChange}
-            className="border-2 border-fuchsia-400 p-2 rounded focus:outline-none focus:border-fuchsia-600 w-full"
+            className="border-2 border-teal-400 p-2 rounded focus:outline-none focus:border-teal-600 w-full"
           />
         </div>
 
@@ -113,7 +113,7 @@ const Formulario = ({ onSuccess }: FormularioProps) => {
             name="email"
             value={formData.email}
             onChange={handleChange}
-            className="border-2 border-fuchsia-400 p-2 rounded focus:outline-none focus:border-fuchsia-600 w-full"
+            className="border-2 border-teal-400 p-2 rounded focus:outline-none focus:border-teal-600 w-full"
           />
         </div>
 
@@ -126,7 +126,7 @@ const Formulario = ({ onSuccess }: FormularioProps) => {
             name="edad"
             value={formData.edad}
             onChange={handleChange}
-            className="border-2 border-fuchsia-400 p-2 rounded focus:outline-none focus:border-fuchsia-600 w-full"
+            className="border-2 border-teal-400 p-2 rounded focus:outline-none focus:border-teal-600 w-full"
           />
         </div>
 
@@ -137,7 +137,7 @@ const Formulario = ({ onSuccess }: FormularioProps) => {
             name="pais"
             value={formData.pais}
             onChange={handleChange}
-            className="border-2 border-fuchsia-400 p-2 rounded focus:outline-none focus:border-fuchsia-600 bg-white w-full"
+            className="border-2 border-teal-400 p-2 rounded focus:outline-none focus:border-teal-600 bg-white w-full"
           >
             {paises.map(pais => <option key={pais} value={pais}>{pais}</option>)}
           </select>
@@ -157,7 +157,7 @@ const Formulario = ({ onSuccess }: FormularioProps) => {
                     value={mod}
                     checked={formData.modalidad === mod}
                     onChange={handleChange}
-                    className="accent-fuchsia-600"
+                    className="accent-teal-600"
                   />
                   {mod}
                 </label>
@@ -178,7 +178,7 @@ const Formulario = ({ onSuccess }: FormularioProps) => {
                     type="checkbox"
                     checked={formData.tecnologias.includes(tech)}
                     onChange={() => handleArrayChange('tecnologias', tech)}
-                    className="accent-fuchsia-600 shrink-0"
+                    className="accent-teal-600 shrink-0"
                   />
                   <span className="truncate">{tech}</span>
                 </label>
@@ -194,7 +194,7 @@ const Formulario = ({ onSuccess }: FormularioProps) => {
             name="nivel"
             value={formData.nivel}
             onChange={handleChange}
-            className="border-2 border-fuchsia-400 p-2 rounded focus:outline-none focus:border-fuchsia-600 bg-white w-full md:max-w-xs"
+            className="border-2 border-teal-400 p-2 rounded focus:outline-none focus:border-teal-600 bg-white w-full md:max-w-xs"
           >
             <option value="Principiante">Principiante</option>
             <option value="Intermedio">Intermedio</option>
@@ -211,7 +211,7 @@ const Formulario = ({ onSuccess }: FormularioProps) => {
               name="aceptaTerminos"
               checked={formData.aceptaTerminos}
               onChange={handleChange}
-              className="accent-fuchsia-600 mt-1 shrink-0"
+              className="accent-teal-600 mt-1 shrink-0"
             />
             <span className="text-sm leading-tight">Acepto los términos y condiciones del evento</span>
           </label>
@@ -221,7 +221,7 @@ const Formulario = ({ onSuccess }: FormularioProps) => {
           <button
             type="submit"
             className={`${
-              participanteActivo ? 'bg-blue-600 hover:bg-blue-700' : 'bg-fuchsia-600 hover:bg-fuchsia-700'
+              participanteActivo ? 'bg-blue-600 hover:bg-blue-700' : 'bg-teal-600 hover:bg-teal-700'
             } text-white font-bold px-6 py-2 rounded transition shadow-md w-full sm:w-auto`}
           >
             {participanteActivo ? 'Actualizar' : 'Registrar Participante'}

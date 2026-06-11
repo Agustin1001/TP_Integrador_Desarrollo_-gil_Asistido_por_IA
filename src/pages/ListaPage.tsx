@@ -45,7 +45,7 @@ export default function ListaPage() {
         {user?.rol === 'ADMIN' && (
           <Link
             to="/nuevo"
-            className="bg-fuchsia-600 hover:bg-fuchsia-700 text-white font-bold py-2 px-4 rounded shadow transition-colors"
+            className="bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded shadow transition-colors"
           >
             + Nuevo Participante
           </Link>
@@ -56,7 +56,7 @@ export default function ListaPage() {
 
       <Filtros filtros={filtros} setFiltros={setFiltros} onLimpiar={limpiarFiltros} />
 
-      <div className="flex justify-between items-center mb-6 p-3 bg-blue-100 rounded text-blue-900 font-bold border-2 border-fuchsia-500 shadow-sm">
+      <div className="flex justify-between items-center mb-6 p-3 bg-blue-100 rounded text-blue-900 font-bold border-2 border-teal-500 shadow-sm">
         <span>
           Mostrando {participantesFiltrados.length} de {participantes.length} participantes
         </span>
