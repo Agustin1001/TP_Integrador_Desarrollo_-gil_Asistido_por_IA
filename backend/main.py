@@ -4,8 +4,9 @@ FastAPI + SQLite + Claude AI (Anthropic)
 Autor: Sofia Raia | TP Integrador - Desarrollo Ágil Asistido por IA
 """
 
-from fastapi import FastAPI, HTTPException, Depends, Header
+from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from pydantic import BaseModel
 import sqlite3
 import json
@@ -150,12 +151,13 @@ def login(datos: LoginData):
         conn.close()
 
 
-def verificar_token(authorization: str = Header(None)):
-    if not authorization or not authorization.startswith("Bearer "):
+http_bearer = HTTPBearer(auto_error=False)
+
+def verificar_token(credentials: HTTPAuthorizationCredentials = Depends(http_bearer)):
+    if not credentials:
         raise HTTPException(status_code=401, detail="Token ausente o inválido")
-    token = authorization.split(" ")[1]
     try:
-        return jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        return jwt.decode(credentials.credentials, SECRET_KEY, algorithms=[ALGORITHM])
     except jwt.ExpiredSignatureError:
         raise HTTPException(status_code=401, detail="El token ha expirado")
     except jwt.InvalidTokenError:
