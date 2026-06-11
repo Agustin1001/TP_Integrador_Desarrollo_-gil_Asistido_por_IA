@@ -248,7 +248,7 @@ async def llamar_ia(prompt: str, max_tokens: int = 800) -> str:
                 "Content-Type":  "application/json",
             },
             json={
-                "model":      "llama3-70b-8192",
+                "model":      "llama-3.3-70b-versatile",
                 "max_tokens": max_tokens,
                 "messages":   [{"role": "user", "content": prompt}],
             },
@@ -361,7 +361,7 @@ async def diagnostico_ia():
             resp = await client.post(
                 "https://api.groq.com/openai/v1/chat/completions",
                 headers={"Authorization": f"Bearer {GROQ_KEY}", "Content-Type": "application/json"},
-                json={"model": "llama3-70b-8192", "max_tokens": 50, "messages": [{"role": "user", "content": "Di solo: OK"}]},
+                json={"model": "llama-3.3-70b-versatile", "max_tokens": 50, "messages": [{"role": "user", "content": "Di solo: OK"}]},
             )
             if resp.status_code == 200:
                 return {"estado": "OK", "respuesta": resp.json()["choices"][0]["message"]["content"], "key_preview": key_preview}
