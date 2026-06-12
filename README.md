@@ -228,3 +228,9 @@ El servicio de IA en producción usa **Groq con el modelo Llama 3.3 70B**, elegi
 
 Desarrollado por **Grupo Bits&Bytes** 👨‍💻👩‍💻
 TP Integrador 2026
+
+Integrantes:
+- Raia, Sofía
+- Rolón, Octavio
+- Marin, Agustín
+- Muñoz, Carlos
