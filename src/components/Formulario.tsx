@@ -2,6 +2,7 @@ import { useContext, useEffect, useRef, useId } from 'react';
 import { Participante } from '../models/Participante';
 import { ParticipantesContext } from '../context/ParticipantesContext';
 import { useForm } from '../hooks/useForm';
+import { useSugerirNivel } from '../hooks/useSugerirNivel';
 
 interface FormularioProps {
   onSuccess?: () => void;
@@ -22,7 +23,7 @@ const Formulario = ({ onSuccess }: FormularioProps) => {
   const modalidadBaseId = useId();
   const tecnologiasBaseId = useId();
 
-  const { formData, handleChange, handleArrayChange, resetForm } = useForm({
+  const { formData, setFormData, handleChange, handleArrayChange, resetForm } = useForm({
     nombre:        '',
     email:         '',
     edad:          '' as number | '',
@@ -32,6 +33,8 @@ const Formulario = ({ onSuccess }: FormularioProps) => {
     nivel:         'Principiante',
     aceptaTerminos: false,
   });
+
+  const { sugerencia, cargando: cargandoIA, error: errorIA, sugerir, limpiar } = useSugerirNivel();
 
   // Extraemos participanteActivo de context (puede ser null si context no existe)
   const participanteActivo = context?.participanteActivo ?? null;
@@ -189,17 +192,60 @@ const Formulario = ({ onSuccess }: FormularioProps) => {
 
         <div className="flex flex-col md:col-span-2">
           <label htmlFor={nivelId} className="font-bold text-sm mb-1 text-black">Nivel de experiencia</label>
-          <select
-            id={nivelId}
-            name="nivel"
-            value={formData.nivel}
-            onChange={handleChange}
-            className="border-2 border-teal-400 p-2 rounded focus:outline-none focus:border-teal-600 bg-white w-full md:max-w-xs"
-          >
-            <option value="Principiante">Principiante</option>
-            <option value="Intermedio">Intermedio</option>
-            <option value="Avanzado">Avanzado</option>
-          </select>
+          <div className="flex flex-wrap items-center gap-2">
+            <select
+              id={nivelId}
+              name="nivel"
+              value={formData.nivel}
+              onChange={handleChange}
+              className="border-2 border-teal-400 p-2 rounded focus:outline-none focus:border-teal-600 bg-white"
+            >
+              <option value="Principiante">Principiante</option>
+              <option value="Intermedio">Intermedio</option>
+              <option value="Avanzado">Avanzado</option>
+            </select>
+            <button
+              type="button"
+              onClick={() => sugerir(formData.tecnologias)}
+              disabled={cargandoIA || formData.tecnologias.length === 0}
+              title={formData.tecnologias.length === 0 ? 'Seleccioná al menos una tecnología' : 'Sugerir nivel con IA'}
+              className="flex items-center gap-1 text-sm bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-300 disabled:cursor-not-allowed text-white font-medium px-3 py-2 rounded transition"
+            >
+              {cargandoIA ? '⏳ Consultando...' : '✨ Sugerir con IA'}
+            </button>
+          </div>
+
+          {errorIA && (
+            <p className="text-red-600 text-xs mt-1">{errorIA}</p>
+          )}
+
+          {sugerencia && (
+            <div className="mt-2 p-3 bg-indigo-50 border border-indigo-200 rounded text-sm max-w-md">
+              <p className="font-semibold text-indigo-800">
+                Sugerencia IA: <span className="text-indigo-600">{sugerencia.nivel}</span>
+              </p>
+              <p className="text-gray-600 mt-1 text-xs leading-relaxed">{sugerencia.justificacion}</p>
+              <div className="mt-2 flex gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setFormData(prev => ({ ...prev, nivel: sugerencia.nivel }));
+                    limpiar();
+                  }}
+                  className="text-xs bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-1 rounded transition"
+                >
+                  Aplicar
+                </button>
+                <button
+                  type="button"
+                  onClick={limpiar}
+                  className="text-xs bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-1 rounded transition"
+                >
+                  Descartar
+                </button>
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="flex flex-col md:col-span-2 my-2">

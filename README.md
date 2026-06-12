@@ -3,9 +3,9 @@
 > **Gestión de participantes potenciada por Inteligencia Artificial**
 > TP Integrador · Desarrollo Ágil Asistido por IA
 
-[![CI/CD](https://github.com/TU_USUARIO/eventos-tech/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/TU_USUARIO/eventos-tech/actions)
-[![Deploy Frontend](https://img.shields.io/badge/Frontend-Vercel-black?logo=vercel)](https://eventos-tech.vercel.app)
-[![Deploy Backend](https://img.shields.io/badge/Backend-Render-46E3B7?logo=render)](https://eventos-tech-api.onrender.com)
+[![CI/CD](https://github.com/Agustin1001/TP_Integrador_Desarrollo_-gil_Asistido_por_IA/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/Agustin1001/TP_Integrador_Desarrollo_-gil_Asistido_por_IA/actions)
+[![Deploy Frontend](https://img.shields.io/badge/Frontend-Vercel-black?logo=vercel)](https://tp-integrador-desarrollo-gil-asisti.vercel.app)
+[![Deploy Backend](https://img.shields.io/badge/Backend-Render-46E3B7?logo=render)](https://tp-integrador-desarrollo-gil-asistido.onrender.com)
 [![Powered by Groq](https://img.shields.io/badge/AI-Groq%20Llama%203.3-F55036)](https://groq.com)
 
 ---
@@ -120,8 +120,8 @@ eventos-tech/
 ### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/TU_USUARIO/eventos-tech.git
-cd eventos-tech
+git clone https://github.com/Agustin1001/TP_Integrador_Desarrollo_-gil_Asistido_por_IA.git
+cd TP_Integrador_Desarrollo_-gil_Asistido_por_IA
 ```
 
 ### 2. Backend
@@ -206,9 +206,9 @@ Configurar los siguientes Secrets en el repositorio:
 
 ## 🔗 Links
 
-- 🌐 **Demo en vivo**: [eventos-tech.vercel.app](https://eventos-tech.vercel.app)
-- 📡 **API**: [eventos-tech-api.onrender.com](https://eventos-tech-api.onrender.com/docs)
-- 📂 **Repositorio**: [github.com/TU_USUARIO/eventos-tech](https://github.com/TU_USUARIO/eventos-tech)
+- 🌐 **Demo en vivo**: [tp-integrador-desarrollo-gil-asisti.vercel.app](https://tp-integrador-desarrollo-gil-asisti.vercel.app)
+- 📡 **API / Swagger**: [tp-integrador-desarrollo-gil-asistido.onrender.com/docs](https://tp-integrador-desarrollo-gil-asistido.onrender.com/docs)
+- 📂 **Repositorio**: [github.com/Agustin1001/TP_Integrador_Desarrollo_-gil_Asistido_por_IA](https://github.com/Agustin1001/TP_Integrador_Desarrollo_-gil_Asistido_por_IA)
 
 ---
 
